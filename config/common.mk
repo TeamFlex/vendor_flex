@@ -115,6 +115,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_COPY_FILES += \
 vendor/flex/prebuilt/common/app/LayersManager/layersmanager.apk:system/app/LayersManager/layersmanager.apk
 
+# SuperSU
+PRODUCT_COPY_FILES += \
+   vendor/flex/prebuilt/common/etc/UPDATE-SuperSU.zip:system/addon.d/UPDATE-SuperSU.zip \
+   vendor/flex/prebuilt/common/etc/init.d/99SuperSUDaemon:system/etc/init.d/99SuperSUDaemon
+
 # easy way to extend to add more packages
 -include vendor/extra/product.mk
 
