@@ -1,3 +1,3 @@
-. "$(gettop)/vendor/slim/build/envsetup.sh"
+. "$(gettop)/vendor/flex/build/envsetup.sh"
 
-slim_device_combos
+flex_device_combos

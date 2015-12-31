@@ -1,3 +1,3 @@
 # Inherit common stuff
-$(call inherit-product, vendor/slim/config/common.mk)
-$(call inherit-product, vendor/slim/config/common_apn.mk)
+$(call inherit-product, vendor/flex/config/common.mk)
+$(call inherit-product, vendor/flex/config/common_apn.mk)

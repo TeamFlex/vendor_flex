@@ -26,25 +26,25 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Backup Tool
 PRODUCT_COPY_FILES += \
-    vendor/slim/prebuilt/common/bin/backuptool.sh:install/bin/backuptool.sh \
-    vendor/slim/prebuilt/common/bin/backuptool.functions:install/bin/backuptool.functions \
-    vendor/slim/prebuilt/common/bin/50-slim.sh:system/addon.d/50-slim.sh
+    vendor/flex/prebuilt/common/bin/backuptool.sh:install/bin/backuptool.sh \
+    vendor/flex/prebuilt/common/bin/backuptool.functions:install/bin/backuptool.functions \
+    vendor/flex/prebuilt/common/bin/50-flex.sh:system/addon.d/50-flex.sh
 
 # Signature compatibility validation
 PRODUCT_COPY_FILES += \
-    vendor/slim/prebuilt/common/bin/otasigcheck.sh:install/bin/otasigcheck.sh
+    vendor/flex/prebuilt/common/bin/otasigcheck.sh:install/bin/otasigcheck.sh
 
-# SLIM-specific init file
+# flex-specific init file
 PRODUCT_COPY_FILES += \
-    vendor/slim/prebuilt/common/etc/init.local.rc:root/init.slim.rc
+    vendor/flex/prebuilt/common/etc/init.local.rc:root/init.flex.rc
 
 # Copy latinime for gesture typing
 PRODUCT_COPY_FILES += \
-    vendor/slim/prebuilt/common/lib/libjni_latinimegoogle.so:system/lib/libjni_latinimegoogle.so
+    vendor/flex/prebuilt/common/lib/libjni_latinimegoogle.so:system/lib/libjni_latinimegoogle.so
 
 # SELinux filesystem labels
 PRODUCT_COPY_FILES += \
-    vendor/slim/prebuilt/common/etc/init.d/50selinuxrelabel:system/etc/init.d/50selinuxrelabel
+    vendor/flex/prebuilt/common/etc/init.d/50selinuxrelabel:system/etc/init.d/50selinuxrelabel
 
 # Enable SIP+VoIP on all targets
 PRODUCT_COPY_FILES += \
@@ -52,13 +52,13 @@ PRODUCT_COPY_FILES += \
 
 # Don't export PS1 in /system/etc/mkshrc.
 PRODUCT_COPY_FILES += \
-    vendor/slim/prebuilt/common/etc/mkshrc:system/etc/mkshrc \
-    vendor/slim/prebuilt/common/etc/sysctl.conf:system/etc/sysctl.conf
+    vendor/flex/prebuilt/common/etc/mkshrc:system/etc/mkshrc \
+    vendor/flex/prebuilt/common/etc/sysctl.conf:system/etc/sysctl.conf
 
 PRODUCT_COPY_FILES += \
-    vendor/slim/prebuilt/common/etc/init.d/00banner:system/etc/init.d/00banner \
-    vendor/slim/prebuilt/common/etc/init.d/90userinit:system/etc/init.d/90userinit \
-    vendor/slim/prebuilt/common/bin/sysinit:system/bin/sysinit
+    vendor/flex/prebuilt/common/etc/init.d/00banner:system/etc/init.d/00banner \
+    vendor/flex/prebuilt/common/etc/init.d/90userinit:system/etc/init.d/90userinit \
+    vendor/flex/prebuilt/common/bin/sysinit:system/bin/sysinit
 
 # Required packages
 PRODUCT_PACKAGES += \
@@ -84,12 +84,12 @@ PRODUCT_PACKAGES += \
 
 # Extra Optional packages
 PRODUCT_PACKAGES += \
-    SlimLauncher \
+    flexLauncher \
     LatinIME \
     BluetoothExt \
     DashClock
 
-#    SlimFileManager removed until updated
+#    flexFileManager removed until updated
 
 # Extra tools
 PRODUCT_PACKAGES += \
@@ -116,88 +116,45 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # easy way to extend to add more packages
 -include vendor/extra/product.mk
 
-PRODUCT_PACKAGE_OVERLAYS += vendor/slim/overlay/common
+PRODUCT_PACKAGE_OVERLAYS += vendor/flex/overlay/common
 
-# Boot animation include
-ifneq ($(TARGET_SCREEN_WIDTH) $(TARGET_SCREEN_HEIGHT),$(space))
+#Bootanimation
+ $(LOCAL_PATH)/media/bootanimation.zip:system/media/bootanimation.zip
 
-# determine the smaller dimension
-TARGET_BOOTANIMATION_SIZE := $(shell \
-  if [ $(TARGET_SCREEN_WIDTH) -lt $(TARGET_SCREEN_HEIGHT) ]; then \
-    echo $(TARGET_SCREEN_WIDTH); \
-  else \
-    echo $(TARGET_SCREEN_HEIGHT); \
-  fi )
-
-# get a sorted list of the sizes
-bootanimation_sizes := $(subst .zip,, $(shell ls vendor/slim/prebuilt/common/bootanimation))
-bootanimation_sizes := $(shell echo -e $(subst $(space),'\n',$(bootanimation_sizes)) | sort -rn)
-
-# find the appropriate size and set
-define check_and_set_bootanimation
-$(eval TARGET_BOOTANIMATION_NAME := $(shell \
-  if [ -z "$(TARGET_BOOTANIMATION_NAME)" ]; then
-    if [ $(1) -le $(TARGET_BOOTANIMATION_SIZE) ]; then \
-      echo $(1); \
-      exit 0; \
-    fi;
-  fi;
-  echo $(TARGET_BOOTANIMATION_NAME); ))
-endef
-$(foreach size,$(bootanimation_sizes), $(call check_and_set_bootanimation,$(size)))
-
-ifeq ($(TARGET_BOOTANIMATION_HALF_RES),true)
-PRODUCT_COPY_FILES += \
-    vendor/slim/prebuilt/common/bootanimation/halfres/$(TARGET_BOOTANIMATION_NAME).zip:system/media/bootanimation.zip
-else
-PRODUCT_COPY_FILES += \
-    vendor/slim/prebuilt/common/bootanimation/$(TARGET_BOOTANIMATION_NAME).zip:system/media/bootanimation.zip
-endif
-endif
 
 # Versioning System
-# SlimLP first version.
-PRODUCT_VERSION_MAJOR = 6.0
+# FlexOS first version.
+PRODUCT_VERSION_MAJOR = 6.0.1
 PRODUCT_VERSION_MINOR = alpha
 PRODUCT_VERSION_MAINTENANCE = 0.1
-ifdef SLIM_BUILD_EXTRA
-    SLIM_POSTFIX := -$(SLIM_BUILD_EXTRA)
+ifdef FLEX_BUILD_EXTRA
+    FLEX_POSTFIX := -$(FLEX_BUILD_EXTRA)
 endif
-ifndef SLIM_BUILD_TYPE
-    SLIM_BUILD_TYPE := UNOFFICIAL
+ifndef FLEX_BUILD_TYPE
+    FLEX_BUILD_TYPE := UNOFFICIAL
     PLATFORM_VERSION_CODENAME := UNOFFICIAL
 endif
 
-ifeq ($(SLIM_BUILD_TYPE),DM)
-    SLIM_POSTFIX := -$(shell date +"%Y%m%d")
+ifeq ($(FLEX_BUILD_TYPE),DM)
+    FLEX_POSTFIX := -$(shell date +"%Y%m%d")
 endif
 
-ifndef SLIM_POSTFIX
-    SLIM_POSTFIX := -$(shell date +"%Y%m%d-%H%M")
+ifndef FLEX_POSTFIX
+    FLEX_POSTFIX := -$(shell date +"%Y%m%d-%H%M")
 endif
 
-PLATFORM_VERSION_CODENAME := $(SLIM_BUILD_TYPE)
-
-# SlimIRC
-# export INCLUDE_SLIMIRC=1 for unofficial builds
-ifneq ($(filter WEEKLY OFFICIAL,$(SLIM_BUILD_TYPE)),)
-    INCLUDE_SLIMIRC = 1
-endif
-
-ifneq ($(INCLUDE_SLIMIRC),)
-    PRODUCT_PACKAGES += SlimIRC
-endif
+PLATFORM_VERSION_CODENAME := $(FLEX_BUILD_TYPE)
 
 # Set all versions
-SLIM_VERSION := Slim-$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE)-$(SLIM_BUILD_TYPE)$(SLIM_POSTFIX)
-SLIM_MOD_VERSION := Slim-$(SLIM_BUILD)-$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE)-$(SLIM_BUILD_TYPE)$(SLIM_POSTFIX)
+FLEX_VERSION := FlexOS-$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE)-$(FLEX_BUILD_TYPE)$(FLEX_POSTFIX)
+FLEX_MOD_VERSION := FlexOS-$(flex_BUILD)-$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE)-$(FLEX_BUILD_TYPE)$(FLEX_POSTFIX)
 
 PRODUCT_PROPERTY_OVERRIDES += \
     BUILD_DISPLAY_ID=$(BUILD_ID) \
-    slim.ota.version=$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE) \
-    ro.slim.version=$(SLIM_VERSION) \
-    ro.modversion=$(SLIM_MOD_VERSION) \
-    ro.slim.buildtype=$(SLIM_BUILD_TYPE)
+    flex.ota.version=$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE) \
+    ro.flex.version=$(FLEX_VERSION) \
+    ro.modversion=$(FLEX_MOD_VERSION) \
+    ro.flex.buildtype=$(FLEX_BUILD_TYPE)
 
-EXTENDED_POST_PROCESS_PROPS := vendor/slim/tools/slim_process_props.py
+EXTENDED_POST_PROCESS_PROPS := vendor/flex/tools/flex_process_props.py
 
