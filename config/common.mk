@@ -33,14 +33,6 @@ PRODUCT_BOOTANIMATION := vendor/flex/prebuilt/common/bootanimation/$(TARGET_BOOT
 endif
 endif
 
-ifdef FLEX_nightly
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.rommanager.developerid=cyanogenmodnightly
-else
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.rommanager.developerid=cyanogenmod
-endif
-
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
 ifeq ($(PRODUCT_GMS_CLIENTID_BASE),)
@@ -72,10 +64,6 @@ ifneq ($(TARGET_BUILD_VARIANT),eng)
 # Enable ADB authentication
 ADDITIONAL_DEFAULT_PROPERTIES += ro.adb.secure=1
 endif
-
-# Copy over the changelog to the device
-PRODUCT_COPY_FILES += \
-    vendor/flex/CHANGELOG.mkdn:system/etc/CHANGELOG-CM.txt
 
 # Backup Tool
 ifneq ($(WITH_GMS),true)
@@ -266,7 +254,7 @@ ifdef FLEX_BUILDTYPE
     endif
 else
     # If FLEX_BUILDTYPE is not defined, set to UNOFFICIAL
-    FLEX_BUILDTYPE := UNOFFICIAL
+    FLEX_BUILDTYPE := unofficial
     FLEX_EXTRAVERSION :=
 endif
 
