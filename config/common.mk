@@ -33,6 +33,14 @@ PRODUCT_BOOTANIMATION := vendor/flex/prebuilt/common/bootanimation/$(TARGET_BOOT
 endif
 endif
 
+ifdef FLEX_nightly
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.rommanager.developerid=cyanogenmodnightly
+else
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.rommanager.developerid=cyanogenmod
+endif
+
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
 ifeq ($(PRODUCT_GMS_CLIENTID_BASE),)
@@ -65,12 +73,16 @@ ifneq ($(TARGET_BUILD_VARIANT),eng)
 ADDITIONAL_DEFAULT_PROPERTIES += ro.adb.secure=1
 endif
 
+# Copy over the changelog to the device
+PRODUCT_COPY_FILES += \
+    vendor/flex/CHANGELOG.mkdn:system/etc/CHANGELOG-CM.txt
+
 # Backup Tool
 ifneq ($(WITH_GMS),true)
 PRODUCT_COPY_FILES += \
     vendor/flex/prebuilt/common/bin/backuptool.sh:install/bin/backuptool.sh \
     vendor/flex/prebuilt/common/bin/backuptool.functions:install/bin/backuptool.functions \
-    vendor/flex/prebuilt/common/bin/50-flex.sh:system/addon.d/50-flex.sh \
+    vendor/flex/prebuilt/common/bin/50-cm.sh:system/addon.d/50-cm.sh \
     vendor/flex/prebuilt/common/bin/blacklist:system/addon.d/blacklist
 endif
 
@@ -89,9 +101,9 @@ PRODUCT_COPY_FILES += \
     vendor/flex/prebuilt/common/etc/init.d/90userinit:system/etc/init.d/90userinit
 endif
 
-# flex-specific init file
+# CM-specific init file
 PRODUCT_COPY_FILES += \
-    vendor/flex/prebuilt/common/etc/init.local.rc:root/init.flex.rc
+    vendor/flex/prebuilt/common/etc/init.local.rc:root/init.cm.rc
 
 # Copy over added mimetype supported in libcore.net.MimeUtils
 PRODUCT_COPY_FILES += \
