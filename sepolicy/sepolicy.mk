@@ -1,7 +1,7 @@
 #
 # This policy configuration will be used by all products that
-# inherit from FlexMM
+# inherit from CM
 #
 
 BOARD_SEPOLICY_DIRS += \
-    vendor/flex/sepolicy
+    vendor/cm/sepolicy
