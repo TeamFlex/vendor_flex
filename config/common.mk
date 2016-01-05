@@ -70,7 +70,7 @@ ifneq ($(WITH_GMS),true)
 PRODUCT_COPY_FILES += \
     vendor/flex/prebuilt/common/bin/backuptool.sh:install/bin/backuptool.sh \
     vendor/flex/prebuilt/common/bin/backuptool.functions:install/bin/backuptool.functions \
-    vendor/flex/prebuilt/common/bin/50-cm.sh:system/addon.d/50-cm.sh \
+    vendor/flex/prebuilt/common/bin/50-flex.sh:system/addon.d/50-flex.sh \
     vendor/flex/prebuilt/common/bin/blacklist:system/addon.d/blacklist
 endif
 
@@ -89,9 +89,9 @@ PRODUCT_COPY_FILES += \
     vendor/flex/prebuilt/common/etc/init.d/90userinit:system/etc/init.d/90userinit
 endif
 
-# CM-specific init file
+# flex-specific init file
 PRODUCT_COPY_FILES += \
-    vendor/flex/prebuilt/common/etc/init.local.rc:root/init.cm.rc
+    vendor/flex/prebuilt/common/etc/init.local.rc:root/init.flex.rc
 
 # Copy over added mimetype supported in libcore.net.MimeUtils
 PRODUCT_COPY_FILES += \
