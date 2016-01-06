@@ -142,6 +142,7 @@ PRODUCT_PACKAGES += \
     AudioFX \
     CMFileManager \
     Eleven \
+    OmniSwitch \
     LockClock \
     CMSettingsProvider \
     ExactCalculator
