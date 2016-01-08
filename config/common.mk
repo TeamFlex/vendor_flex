@@ -120,7 +120,7 @@ PRODUCT_PACKAGE_OVERLAYS += vendor/flex/overlay/common
 # Versioning System
 # FlexOS first version.
 PRODUCT_VERSION_MAJOR = 6.0.1
-PRODUCT_VERSION_MINOR = alpha
+PRODUCT_VERSION_MINOR = initial
 PRODUCT_VERSION_MAINTENANCE = 0.1
 ifdef FLEX_BUILD_EXTRA
     FLEX_POSTFIX := -$(FLEX_BUILD_EXTRA)
@@ -135,7 +135,7 @@ ifeq ($(FLEX_BUILD_TYPE),DM)
 endif
 
 ifndef FLEX_POSTFIX
-    FLEX_POSTFIX := -$(shell date +"%Y%m%d-%H%M")
+    FLEX_POSTFIX := -$(shell date +"%Y%m%d")
 endif
 
 PLATFORM_VERSION_CODENAME := $(FLEX_BUILD_TYPE)
