@@ -5,7 +5,7 @@ function flex_device_combos()
     local T list_file variant device
 
     T="$(gettop)"
-    list_file="${T}/vendor/flex/flex.devices"
+    list_file="${T}/vendor/flex/flayr.devices"
     variant="userdebug"
 
     if [[ $1 ]]
@@ -84,7 +84,7 @@ function flexremote()
 
     project="${proj//\//_}"
 
-    git remote add flex "git@github.com:FlexOS/$pfx$project"
+    git remote add flayr "ssh://git@github.com/TeamFlex/$pfx$project"
     echo "Remote 'flex' created"
 }
 
@@ -102,7 +102,7 @@ function cmremote()
     proj="$(pwd -P | sed "s#$ANDROID_BUILD_TOP/##g")"
     pfx="android_"
     project="${proj//\//_}"
-    git remote add cm "git@github.com:CyanogenMod/$pfx$project"
+    git remote add cm "git://github.com/CyanogenMod/$pfx$project"
     echo "Remote 'cm' created"
 }
 
@@ -113,7 +113,7 @@ function aospremote()
     if ! git rev-parse &> /dev/null
     then
         echo "Not in a git directory. Please run this from an Android repository you wish to set up."
-        return
+        return1
     fi
     git remote rm aosp 2> /dev/null
 
@@ -148,7 +148,7 @@ function cafremote()
 function flex_push()
 {
     local branch ssh_name path_opt proj
-    branch="lp5.1"
+    branch="mm6.0"
     ssh_name="flex_review"
     path_opt=
 
@@ -167,7 +167,7 @@ function flex_push()
         proj="android_$proj"
     fi
 
-    git $path_opt push "ssh://${ssh_name}/FlexOS/$proj" "HEAD:refs/for/$branch"
+    git $path_opt push "ssh://git@github.com/TeamFlex/$proj" "HEAD:refs/for/$branch"
 }
 
 
