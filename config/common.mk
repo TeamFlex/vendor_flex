@@ -84,8 +84,11 @@ PRODUCT_PACKAGES += \
     BluetoothExt \
     DashClock
 
-#    flexFileManager removed until updated
-
+# Some daily-usage applications
+PRODUCT_PACKAGES += \
+    Apollo \
+    messaging 
+    
 # Extra tools
 PRODUCT_PACKAGES += \
     openvpn \
