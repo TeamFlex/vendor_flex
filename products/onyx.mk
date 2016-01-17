@@ -1,4 +1,4 @@
-# Copyright (C) 2014 The Flex Project
+# Copyright (C) 2016 The Flex Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,10 +18,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 # Inherit from onyx device
 $(call inherit-product, device/oneplus/onyx/onyx.mk)
 
-# Enhanced NFC
-$(call inherit-product, vendor/flex/config/nfc_enhanced.mk)
-
-# Inherit some common CM stuff.
+# Inherit some common Flex stuff.
 $(call inherit-product, vendor/flex/config/common_full_phone.mk)
 
 PRODUCT_NAME := flex_onyx
@@ -30,9 +27,3 @@ PRODUCT_MANUFACTURER := OnePlus
 PRODUCT_MODEL := Oneplus X
 
 PRODUCT_GMS_CLIENTID_BASE := android-oneplus
-
-PRODUCT_BRAND := oneplus
-TARGET_VENDOR := oneplus
-TARGET_VENDOR_PRODUCT_NAME := onyx
-TARGET_VENDOR_DEVICE_NAME := onyx
-PRODUCT_BUILD_PROP_OVERRIDES += TARGET_DEVICE=onyx PRODUCT_NAME=onyx
