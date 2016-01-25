@@ -232,8 +232,10 @@ PRODUCT_COPY_FILES +=  \
 PRODUCT_PROPERTY_OVERRIDES += \
    ro.romstats.url=http://flexstats.cf \
    ro.romstats.name=FlexOS \
-   ro.romstats.version=-Flex-2.0 \
-   ro.romstats.tframe=7
+   ro.romstats.version=-2.0 \
+   ro.romstats.tframe=7 \
+   ro.romstats.ga=UA-40906688-5
+   
 
 # Set FLEX_BUILDTYPE from the env release_TYPE, for jenkins compat
 
