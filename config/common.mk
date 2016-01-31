@@ -118,6 +118,9 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PACKAGE_OVERLAYS += vendor/flex/overlay/common
 
+# Include LatinIME dictionaries
+PRODUCT_PACKAGE_OVERLAYS += vendor/flex/overlay/dictionaries
+
 #Bootanimation
  $(LOCAL_PATH)/media/bootanimation.zip:system/media/bootanimation.zip
 
