@@ -1,3 +1,3 @@
 . "$(gettop)/vendor/flex/build/envsetup.sh"
 
-flex_device_combos
+flayr_device_combos
