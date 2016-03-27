@@ -134,12 +134,12 @@ endif
 PLATFORM_VERSION_CODENAME := $(FLEX_BUILD_TYPE)
 
 # Set all versions
-FLEX_VERSION := FlayrOS-M-$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR)-$(FLEX_BUILD_TYPE)-$(date +%Y%M%d)
+FLEX_VERSION := FlayrOS-M-$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR)-$(FLEX_BUILD)-$(FLEX_BUILD_TYPE)-$(shell date +%Y%M%d)
 FLEX_MOD_VERSION := $(FLEX_VERSION)
 
 PRODUCT_PROPERTY_OVERRIDES += \
     BUILD_DISPLAY_ID=$(BUILD_ID) \
-    flex.ota.version=$(date +%Y%m%d) \
+    flex.ota.version=$(shell date +%Y%m%d) \
     ro.flex.version=$(FLEX_VERSION) \
     ro.modversion=$(FLEX_MOD_VERSION) \
     ro.flex.buildtype=$(FLEX_BUILD_TYPE)
