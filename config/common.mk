@@ -73,10 +73,6 @@ PRODUCT_PACKAGES += \
     LiveWallpapersPicker \
     PhaseBeam
 
-# AudioFX
-PRODUCT_PACKAGES += \
-    AudioFX
-
 # Extra Optional packages
 PRODUCT_PACKAGES += \
     Launcher3 \
@@ -86,7 +82,7 @@ PRODUCT_PACKAGES += \
 
 # Some daily-usage applications
 PRODUCT_PACKAGES += \
-    Apollo \
+    Eleven \
     messaging 
     
 # Extra tools
@@ -120,9 +116,6 @@ PRODUCT_COPY_FILES += \
    vendor/flex/prebuilt/common/etc/UPDATE-SuperSU.zip:system/addon.d/UPDATE-SuperSU.zip \
    vendor/flex/prebuilt/common/etc/init.d/99SuperSUDaemon:system/etc/init.d/99SuperSUDaemon
 
-# easy way to extend to add more packages
--include vendor/extra/product.mk
-
 PRODUCT_PACKAGE_OVERLAYS += vendor/flex/overlay/common
 
 #Bootanimation
@@ -130,35 +123,23 @@ PRODUCT_PACKAGE_OVERLAYS += vendor/flex/overlay/common
 
 
 # Versioning System
-# FlexOS first version.
-PRODUCT_VERSION_MAJOR = 6.0.1
-PRODUCT_VERSION_MINOR = initial
+# FlayrOS first version.
+PRODUCT_VERSION_MAJOR = 1
+PRODUCT_VERSION_MINOR = 0
 PRODUCT_VERSION_MAINTENANCE = 1.0
-ifdef FLEX_BUILD_EXTRA
-    FLEX_POSTFIX := -$(FLEX_BUILD_EXTRA)
-endif
 ifndef FLEX_BUILD_TYPE
     FLEX_BUILD_TYPE := UNOFFICIAL
-    PLATFORM_VERSION_CODENAME := UNOFFICIAL
-endif
-
-ifeq ($(FLEX_BUILD_TYPE),DM)
-    FLEX_POSTFIX := -$(shell date +"%Y%m%d")
-endif
-
-ifndef FLEX_POSTFIX
-    FLEX_POSTFIX := -$(shell date +"%Y%m%d")
 endif
 
 PLATFORM_VERSION_CODENAME := $(FLEX_BUILD_TYPE)
 
 # Set all versions
-FLEX_VERSION := FlayrOS-$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE)-$(FLEX_BUILD_TYPE)$(FLEX_POSTFIX)
-FLEX_MOD_VERSION := FlayrOS-$(FLEX_BUILD)-$(PRODUCT_VERSION_MAINTENANCE)-$(FLEX_BUILD_TYPE)$(FLEX_POSTFIX)
+FLEX_VERSION := FlayrOS-M-$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR)-$(FLEX_BUILD_TYPE)-$(date +%Y%M%d)
+FLEX_MOD_VERSION := $(FLEX_VERSION)
 
 PRODUCT_PROPERTY_OVERRIDES += \
     BUILD_DISPLAY_ID=$(BUILD_ID) \
-    flex.ota.version=$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE) \
+    flex.ota.version=$(date +%Y%m%d) \
     ro.flex.version=$(FLEX_VERSION) \
     ro.modversion=$(FLEX_MOD_VERSION) \
     ro.flex.buildtype=$(FLEX_BUILD_TYPE)
