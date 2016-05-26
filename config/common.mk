@@ -62,7 +62,6 @@ PRODUCT_COPY_FILES += \
 
 # Required packages
 PRODUCT_PACKAGES += \
-    CellBroadcastReceiver \
     Development \
     SpareParts \
     su
@@ -77,8 +76,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Launcher3 \
     LatinIME \
-    BluetoothExt \
-    DashClock
+    BluetoothExt
 
 # Some daily-usage applications
 PRODUCT_PACKAGES += \
@@ -91,11 +89,18 @@ PRODUCT_PACKAGES += \
     e2fsck \
     mke2fs \
     tune2fs \
+    mkfs.ntfs \
+    fsck.ntfs \
+    mount.ntfs
+
+WITH_EXFAT ?= true
+ifeq ($(WITH_EXFAT),true)
+TARGET_USES_EXFAT := true
+PRODUCT_PACKAGES += \
     mount.exfat \
     fsck.exfat \
-    mkfs.exfat \
-    ntfsfix \
-    ntfs-3g
+    mkfs.exfat
+endif
 
 # Stagefright FFMPEG plugin
 PRODUCT_PACKAGES += \
@@ -164,9 +169,7 @@ endif
 PRODUCT_VERSION_MAJOR = 1
 PRODUCT_VERSION_MINOR = 0
 PRODUCT_VERSION_MAINTENANCE = 1.0
-ifndef FLEX_BUILD_TYPE
-    FLEX_BUILD_TYPE := UNOFFICIAL
-endif
+FLEX_BUILD_TYPE ?= UNOFFICIAL
 
 PLATFORM_VERSION_CODENAME := $(FLEX_BUILD_TYPE)
 
@@ -181,5 +184,4 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.modversion=$(FLEX_MOD_VERSION) \
     ro.flex.buildtype=$(FLEX_BUILD_TYPE)
 
-EXTENDED_POST_PROCESS_PROPS := vendor/flex/tools/flex_process_props.py
 
