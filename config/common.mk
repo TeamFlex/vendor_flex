@@ -156,11 +156,12 @@ $(eval TARGET_BOOTANIMATION_NAME := $(shell \
 endef
 $(foreach size,$(bootanimation_sizes), $(call check_and_set_bootanimation,$(size)))
 
- ifeq ($(TARGET_BOOTANIMATION_HALF_RES),true)PRODUCT_COPY_FILES += \
-    vendor/flex/prebuilt/common/bootanimation/halfres/$(TARGET_BOOTANIMATION_NAME).zip:system/media/bootanimation.zip
+ifeq ($(TARGET_BOOTANIMATION_HALF_RES),true)
+    PRODUCT_COPY_FILES += \
+        vendor/flex/prebuilt/common/bootanimation/halfres/$(TARGET_BOOTANIMATION_NAME).zip:system/media/bootanimation.zip
 else
-PRODUCT_COPY_FILES += \
-    vendor/flex/prebuilt/common/bootanimation/$(TARGET_BOOTANIMATION_NAME).zip:system/media/bootanimation.zip
+    PRODUCT_COPY_FILES += \
+        vendor/flex/prebuilt/common/bootanimation/$(TARGET_BOOTANIMATION_NAME).zip:system/media/bootanimation.zip
 endif
 endif
 
