@@ -74,7 +74,7 @@ PRODUCT_PACKAGES += \
 
 # Extra Optional packages
 PRODUCT_PACKAGES += \
-    Launcher3 \
+    SlimLauncher \
     LatinIME \
     BluetoothExt
 
